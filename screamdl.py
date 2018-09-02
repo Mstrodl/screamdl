@@ -21,10 +21,16 @@ for extractor in all_extractors:
         supported.append(extractor.IE_NAME)
         supported_re.append(extractor._VALID_URL)
 
+def any_extractor(url):
+    for extractor_re in supported_re:
+        if re.search(extractor_re, url):
+            return True
+    return False
+
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         video_url = self.get_query_argument("v", default="")
-        if not any([re.search(extractor_re, video_url) for extractor_re in supported_re]):
+        if not any_extractor(video_url):
             self.set_status(415)
             return self.write({
                 "message": "UNSUPPORTED_SITE",
