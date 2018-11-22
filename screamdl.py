@@ -11,7 +11,7 @@ ydl = youtube_dl.YoutubeDL({})
 
 all_extractors = youtube_dl.list_extractors(math.inf)
 supported = []
-supported_re = []
+supported_re = [r"https?://(?:www\.)?cbsnews\.com"]
 bad_extractors = ["generic"]
 
 for extractor in all_extractors:
